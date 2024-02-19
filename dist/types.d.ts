@@ -1,4 +1,4 @@
-export type ItemType = 'l' | 'lt' | 't' | 'tr' | 'r' | 'rb' | 'b' | 'lb';
+export type ItemType = 'l' | 'lt' | 't' | 'tr' | 'r' | 'rb' | 'b' | 'lb' | 'rotate' | 'skew';
 export type Point = {
     x: number;
     y: number;
