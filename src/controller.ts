@@ -19,7 +19,7 @@ export const Cursors = {
     'rotate': 'pointer',
     'skew': 'pointer',
     // 根据角度旋转指针
-    async get(dir: ItemType, rotation: number=0) {
+    async get(dir: ItemType|'rotate'|'skew', rotation: number=0) {
         if(dir === 'rotate' || dir === 'skew') return this[dir];
         if(Math.abs(rotation) > fullCircleRadius) rotation = rotation % fullCircleRadius;
         // 2PI 为一个圆，把角度转为一个圆内的值，以免重复生成图片
@@ -103,7 +103,7 @@ export const rotateChange = (oldPosition: Point, newPosition: Point, center: Poi
 }
 
 // 根据操作参数，计算位移，大小和旋转角度等
-export const getChangeData = (dir: ItemType, offset: Point, oldPosition: Point, newPosition: Point, center: Point, bounds: BoundRect, rotation: number=0) => {
+export const getChangeData = (dir: ItemType, offset: Point, oldPosition: Point, newPosition: Point, center: Point, rotation: number=0) => {
     // 当前移动对原对象的改变
     const args: ChangeData = {
         x: 0, 
@@ -116,73 +116,55 @@ export const getChangeData = (dir: ItemType, offset: Point, oldPosition: Point, 
             y: 0
         }
     };
-    // 根据操作计算旋转角度
-    if(dir === 'rotate') {
-        args.rotation = rotateChange(oldPosition, newPosition, center);
+    // 先回原坐标，再主算偏移量，这样保证操作更容易理解
+    if(rotation) {
+        offset = getRotateEventPosition(offset, oldPosition, newPosition, rotation, center);
     }
-    else if(dir === 'element') {
-        // 元素位置控制器
-        args.x = offset.x;
-        args.y = offset.y;
+    
+    switch(dir) {                
+        case 'l': {
+            args.x = offset.x;
+            args.width = -offset.x;
+            break;
+        }
+        case 't': {
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'r': {
+            args.width = offset.x;
+            break;
+        }
+        case 'b': {
+            args.height = offset.y;
+            break;
+        }
+        case 'lt':{   
+            args.x = offset.x;
+            args.width = -offset.x; 
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'tr':{   
+            args.width = offset.x; 
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'rb':{   
+            args.width = offset.x; 
+            args.height = offset.y;
+            break;
+        }
+        case 'lb':{   
+            args.x = offset.x;
+            args.width = -offset.x; 
+            args.height = offset.y;
+            break;
+        }   
     }
-    else {
-        // 先回原坐标，再主算偏移量，这样保证操作更容易理解
-        if(rotation) {
-            offset = getRotateEventPosition(offset, oldPosition, newPosition, rotation, center);
-        }
-        
-        switch(dir) {                
-            case 'l': {
-                args.x = offset.x;
-                args.width = -offset.x;
-                break;
-            }
-            case 't': {
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'r': {
-                args.width = offset.x;
-                break;
-            }
-            case 'b': {
-                args.height = offset.y;
-                break;
-            }
-            case 'lt':{   
-                args.x = offset.x;
-                args.width = -offset.x; 
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'tr':{   
-                args.width = offset.x; 
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'rb':{   
-                args.width = offset.x; 
-                args.height = offset.y;
-                break;
-            }
-            case 'lb':{   
-                args.x = offset.x;
-                args.width = -offset.x; 
-                args.height = offset.y;
-                break;
-            }
-            case 'skew': {                    
-                const rx = offset.x / bounds.width * Math.PI;
-                const ry = offset.y / bounds.height * Math.PI;
-                args.skew.x = ry;
-                args.skew.y = rx;
-                break;
-            }            
-        }
-    }   
 
     // 如果中心发生了偏移，则新中心点要移到绕原中心点旋转当前旋转角度的点，才举使图形移动不正常
     if(rotation && (args.x || args.y || args.width || args.height)) {

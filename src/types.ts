@@ -1,5 +1,5 @@
 // 操作点key
-export type ItemType = 'l'|'lt'|'t'|'tr'|'r'|'rb'|'b'|'lb'|'rotate'|'skew'|'element'|'';
+export type ItemType = 'l'|'lt'|'t'|'tr'|'r'|'rb'|'b'|'lb';
 
 export type Point = {
     x: number;

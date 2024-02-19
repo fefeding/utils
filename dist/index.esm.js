@@ -329,7 +329,7 @@ const rotateChange = (oldPosition, newPosition, center) => {
     return angle2 - angle1;
 };
 // 根据操作参数，计算位移，大小和旋转角度等
-const getChangeData = (dir, offset, oldPosition, newPosition, center, bounds, rotation = 0) => {
+const getChangeData = (dir, offset, oldPosition, newPosition, center, rotation = 0) => {
     // 当前移动对原对象的改变
     const args = {
         x: 0,
@@ -342,70 +342,52 @@ const getChangeData = (dir, offset, oldPosition, newPosition, center, bounds, ro
             y: 0
         }
     };
-    // 根据操作计算旋转角度
-    if (dir === 'rotate') {
-        args.rotation = rotateChange(oldPosition, newPosition, center);
+    // 先回原坐标，再主算偏移量，这样保证操作更容易理解
+    if (rotation) {
+        offset = getRotateEventPosition(offset, oldPosition, newPosition, rotation, center);
     }
-    else if (dir === 'element') {
-        // 元素位置控制器
-        args.x = offset.x;
-        args.y = offset.y;
-    }
-    else {
-        // 先回原坐标，再主算偏移量，这样保证操作更容易理解
-        if (rotation) {
-            offset = getRotateEventPosition(offset, oldPosition, newPosition, rotation, center);
+    switch (dir) {
+        case 'l': {
+            args.x = offset.x;
+            args.width = -offset.x;
+            break;
         }
-        switch (dir) {
-            case 'l': {
-                args.x = offset.x;
-                args.width = -offset.x;
-                break;
-            }
-            case 't': {
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'r': {
-                args.width = offset.x;
-                break;
-            }
-            case 'b': {
-                args.height = offset.y;
-                break;
-            }
-            case 'lt': {
-                args.x = offset.x;
-                args.width = -offset.x;
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'tr': {
-                args.width = offset.x;
-                args.y = offset.y;
-                args.height = -offset.y;
-                break;
-            }
-            case 'rb': {
-                args.width = offset.x;
-                args.height = offset.y;
-                break;
-            }
-            case 'lb': {
-                args.x = offset.x;
-                args.width = -offset.x;
-                args.height = offset.y;
-                break;
-            }
-            case 'skew': {
-                const rx = offset.x / bounds.width * Math.PI;
-                const ry = offset.y / bounds.height * Math.PI;
-                args.skew.x = ry;
-                args.skew.y = rx;
-                break;
-            }
+        case 't': {
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'r': {
+            args.width = offset.x;
+            break;
+        }
+        case 'b': {
+            args.height = offset.y;
+            break;
+        }
+        case 'lt': {
+            args.x = offset.x;
+            args.width = -offset.x;
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'tr': {
+            args.width = offset.x;
+            args.y = offset.y;
+            args.height = -offset.y;
+            break;
+        }
+        case 'rb': {
+            args.width = offset.x;
+            args.height = offset.y;
+            break;
+        }
+        case 'lb': {
+            args.x = offset.x;
+            args.width = -offset.x;
+            args.height = offset.y;
+            break;
         }
     }
     // 如果中心发生了偏移，则新中心点要移到绕原中心点旋转当前旋转角度的点，才举使图形移动不正常
