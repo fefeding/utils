@@ -1,42 +1,78 @@
 export default {
-    // 是否是数字
+    /**
+     * 是否是数字，字符串数字或配身就是number返回true
+     * @param v 原字符串或数字
+     * @returns true/false
+     */
     isNumber(v) {
-        return typeof v === 'number' || /^\s*[\d\.]+\s*$/.test(v);
+        return typeof v === 'number' || /^\s*[\d]+(\.\d+)?\s*$/.test(v);
     },
-    // 是否是带像素单位的字符串
+    /**
+     * 是否是带像素单位(px)的字符串
+     * @param v
+     * @returns
+     */
     isPXNumber(v) {
         return /^\s*[\d\.]+\s*px\s*/i.test(v);
     },
-    // 是否是带角度单位的字符串
+    /**
+     * 是否是带角度单位(deg)的字符串
+     * @param v
+     * @returns
+     */
     isDegNumber(v) {
         return /^\s*[\d\.]+\s*deg\s*/i.test(v);
     },
-    // 是否是带弧度单位的字符串
+    /**
+     * 是否是带弧度单位(rad)的字符串
+     * @param v
+     * @returns
+     */
     isRadNumber(v) {
         return /^\s*[\d\.]+\s*rad\s*/i.test(v);
     },
-    // 转为像素字符串格式 
+    /**
+     * 转为像素字符串格式 : 2 -> 2px
+     * @param v
+     * @returns
+     */
     toPX(v) {
         if (this.isNumber(v))
             return v + 'px';
         return v;
     },
-    // 带像素或其它单位的转换为数字
+    /**
+     * 带像素或其它单位的转换为数字: 2px -> 2
+     * @param v
+     * @returns
+     */
     toNumber(v) {
         if (this.isNumber(v))
             return Number(v);
         else if (typeof v === 'string')
             return parseFloat(v) || 0;
     },
-    // 弧度转角度
+    /**
+     * 弧度转角度: Math.PI -> 180
+     * @param v
+     * @returns
+     */
     radToDeg(v) {
         return v * (180 / Math.PI);
     },
-    // 角度转弧度
+    /**
+     * 角度转弧度 180 -> Math.PI
+     * @param v
+     * @returns
+     */
     degToRad(v) {
         return v * (Math.PI / 180);
     },
-    // 转为角度格式
+    /**
+     * 转为角度格式 1 -> 1deg, 3.14rad -> 180deg
+     * @param v
+     * @returns
+     */
     toDeg(v) {
         if (this.isNumber(v))
             return v + 'deg';
@@ -44,7 +80,11 @@ export default {
             return this.toDeg(this.radToDeg(parseFloat(v)));
         return v;
     },
-    // 转为弧度格式
+    /**
+     * 转为弧度格式, 1 -> 1rad,  180deg -> 3.14rad
+     * @param v
+     * @returns
+     */
     toRad(v) {
         if (this.isNumber(v))
             return v + 'rad';
@@ -80,7 +120,11 @@ export default {
         }
         return pos;
     },
-    // 获取元素bounds
+    /**
+     * 获取元素bounds
+     * @param el
+     * @returns
+     */
     getElementBoundingRect(el) {
         let bounds = {
             height: 0,
@@ -104,7 +148,12 @@ export default {
         }
         return bounds;
     },
-    // 把domcument坐标转为指定元素相对坐标
+    /**
+     * 把domcument坐标转为指定元素相对坐标
+     * @param pos
+     * @param dom
+     * @returns
+     */
     toDomPosition(pos, dom) {
         const domPos = this.getElementBoundingRect(dom);
         return {
@@ -142,7 +191,13 @@ export default {
         }
         return p;
     },
-    // 设置样式
+    /**
+     * 设置dom样式
+     * @param dom
+     * @param name
+     * @param value
+     * @returns
+     */
     css(dom, name, value) {
         if (!name)
             return;
@@ -156,7 +211,13 @@ export default {
         }
         return this;
     },
-    // dom属性
+    /**
+     * 设置或读取dom属性
+     * @param dom
+     * @param name
+     * @param value
+     * @returns
+     */
     attr(dom, name, value) {
         if (typeof value !== 'undefined') {
             dom.setAttribute(name, value + '');
@@ -172,7 +233,12 @@ export default {
         const rnd = Math.floor(Math.random() * 10000000000);
         return (time + rnd).toString();
     },
-    // 把图片旋转一定角度，返回base64
+    /**
+     * 把图片旋转一定角度，返回base64
+     * @param url
+     * @param rotation
+     * @returns
+     */
     async rotateImage(url, rotation) {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -195,7 +261,12 @@ export default {
             img.src = url;
         });
     },
-    // 请求远程资源
+    /**
+     * 请求远程资源
+     * @param url
+     * @param option
+     * @returns
+     */
     async request(url, option) {
         option = option || {};
         return new Promise((resolve, reject) => {

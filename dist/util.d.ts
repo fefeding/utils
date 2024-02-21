@@ -1,13 +1,63 @@
 declare const _default: {
+    /**
+     * 是否是数字，字符串数字或配身就是number返回true
+     * @param v 原字符串或数字
+     * @returns true/false
+     */
     isNumber(v: string | number): boolean;
+    /**
+     * 是否是带像素单位(px)的字符串
+     * @param v
+     * @returns
+     */
     isPXNumber(v: string): boolean;
+    /**
+     * 是否是带角度单位(deg)的字符串
+     * @param v
+     * @returns
+     */
     isDegNumber(v: string): boolean;
+    /**
+     * 是否是带弧度单位(rad)的字符串
+     * @param v
+     * @returns
+     */
     isRadNumber(v: string): boolean;
+    /**
+     * 转为像素字符串格式 : 2 -> 2px
+     * @param v
+     * @returns
+     */
     toPX(v: string | number): string | number;
+    /**
+     * 带像素或其它单位的转换为数字: 2px -> 2
+     * @param v
+     * @returns
+     */
     toNumber(v: string | number): number;
+    /**
+     * 弧度转角度: Math.PI -> 180
+     * @param v
+     * @returns
+     */
     radToDeg(v: number): number;
+    /**
+     * 角度转弧度 180 -> Math.PI
+     * @param v
+     * @returns
+     */
     degToRad(v: number): number;
+    /**
+     * 转为角度格式 1 -> 1deg, 3.14rad -> 180deg
+     * @param v
+     * @returns
+     */
     toDeg(v: string | number): any;
+    /**
+     * 转为弧度格式, 1 -> 1rad,  180deg -> 3.14rad
+     * @param v
+     * @returns
+     */
     toRad(v: string | number): any;
     /**
      * 获取元素的绝对定位
@@ -18,12 +68,23 @@ declare const _default: {
         y: number;
         x: number;
     };
+    /**
+     * 获取元素bounds
+     * @param el
+     * @returns
+     */
     getElementBoundingRect(el: HTMLElement): {
         height: number;
         width: number;
         x: number;
         y: number;
     };
+    /**
+     * 把domcument坐标转为指定元素相对坐标
+     * @param pos
+     * @param dom
+     * @returns
+     */
     toDomPosition(pos: {
         x: number;
         y: number;
@@ -48,10 +109,36 @@ declare const _default: {
         x: number;
         y: number;
     }, r: number): T;
+    /**
+     * 设置dom样式
+     * @param dom
+     * @param name
+     * @param value
+     * @returns
+     */
     css(dom: any, name: string | Object, value?: string | number): any;
+    /**
+     * 设置或读取dom属性
+     * @param dom
+     * @param name
+     * @param value
+     * @returns
+     */
     attr(dom: any, name: string, value: string | number | undefined): any;
     uuid(): string;
+    /**
+     * 把图片旋转一定角度，返回base64
+     * @param url
+     * @param rotation
+     * @returns
+     */
     rotateImage(url: string, rotation: number): Promise<string>;
+    /**
+     * 请求远程资源
+     * @param url
+     * @param option
+     * @returns
+     */
     request(url: string, option?: {
         method?: string;
         headers?: {

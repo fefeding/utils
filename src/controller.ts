@@ -6,7 +6,9 @@ export const ns = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAAD
 
 export const fullCircleRadius = Math.PI * 2;
 
-// 操作杠指针
+/**
+ * 操作杠指针配置
+ */
 export const Cursors = {
     'l': '',
     'lt': nwse,
@@ -58,12 +60,23 @@ export const Cursors = {
     }
 }; 
 
+/**
+ * 图标配置
+ */
 export const ItemIcons = {    
     'rotate': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAgVBMVEUAAAAiK9MjKdUfKNYjKdUiKNYiKdUeHuAjKNYjKNYiKNYyMswiKNYiKNYiKNYiKNYhKNYiKdUiKNYiKNYjKdUjKNYgJ9cjJdYiKNYiKNYiKdUhJ9cjKNYiKdUdLNMrK9MiKNYiKNYiKdUiKNYjKNYjKdUjKdUjKNYjKdUjKdUjKdaUW7eVAAAAKnRSTlMAFdMY1/v4CPXo4wXuyLh6RfKRjWpAJxykb1tSTjARC8OslYVgOivQrqey7caqAAABM0lEQVRIx+2U6W6DMBCEDdSE+2wg950e3/s/YGOBQI0hMf+qKvODHYsZe9derXjh32C2PsU+BIcyCw3kVhnRIUj3z/TvEcTp1RGizs42BJvH+kqSbPtlFkP52LFc353oshCTMM8pJzpchuuwrLEs8fdDes9zRhwH0gG9DbY1khR+OKQfd9hkuv4Nbp/hrFIKXe+ANebIiHW9gJbod2fhN7zTq+Shpb/3UusQ2fGeuMw6rtBv1vxraX9UgNNwPV1l0NONmbdMd7jUenkFqRhzyKEr3/DZENNHDSOuKpq3zZlEBfPG3EVcVDRv/RX5VkzCAv9jkiFMyO+GwHb1eOgt4Kvq104hverJIMshea/CG61X3y6yeDb7nJMHyChwVTia1LS7HAMJ+MmyNp/gO2cmXvjD+AHprhpoJKiYYAAAAABJRU5ErkJggg==',
     'skew': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAdVBMVEUAAABlY/97e/9kYv9kY/9nZ/9lY/9kYv9kY/9kYv9kY/9lY/9kYv9kY/9pYP9oYP9kYv9kYv9kY/9kYv9iYv9nY/9kYv9lYv9kYv9lYv9lY/9kYv9lYv9kY/9kYv9lZf9lY/9kYv9kYv9lYv9kYv9lY/9lY/+ktQNRAAAAJnRSTlMA/ATv3xHmW/V0TtO3khcNy8XBUh8U6ti+ppt5bksnGTqygmNEZ0ctpdUAAAEmSURBVEjH7VPbloIwDKSloAUqF6kgd123//+Ja+jSSpGqD74xbynJycxkcDZs+BIOAa2ygrgIuaQoKxocbN03FooFQnZ73u1RIlZQUG/ZvzsJC9zGaOeZkEAJa9ou9zD28q5tWIKERDZb0kvu+3MQm5vj4LyXWh7k42Rce/VW1F1d+J5g9fILddmv29eX0PGj6vReRdhmOI7uLakqgWTnWNGBRFWBo7l9IAeRqgKGFzulCzirjyZAxGRb6/tHM2GREq1VC7eWtvpCoN3M1nq0NX3gwAt9OBiACfNwZKaSRyoaVST0xJBN0UjNMzVG+NCog0zho0tP4noebwKP/2zq+Ll5AwuNAYpEyIZXv+hJU3I4d17iiKToN6Fs/WDgg34djQ0bvo4/naYvgs8xmvwAAAAASUVORK5CYII='
 }
 
-// 因为旋转后坐标要回原才好计算操作，
+/**
+ * 因为旋转后坐标要回原才好计算操作，
+ * @param offset 
+ * @param oldPosition 
+ * @param newPosition 
+ * @param rotation 
+ * @param center 
+ * @returns 
+ */
 export const getRotateEventPosition = (offset: Point, oldPosition: Point, newPosition: Point, rotation: number, center: Point) => {
 
     // 先回原坐标，再主算偏移量，这样保证操作更容易理解
@@ -75,7 +88,9 @@ export const getRotateEventPosition = (offset: Point, oldPosition: Point, newPos
     return offset;
 }
 
-// 发生旋转, 计算得到的旋转角度
+/**
+ *  发生旋转, 计算得到的旋转角度
+ */
 export const rotateChange = (oldPosition: Point, newPosition: Point, center: Point) => {
     
     // 因为center是相对于编辑器的，所以事件坐标也需要转到编辑器
@@ -102,7 +117,9 @@ export const rotateChange = (oldPosition: Point, newPosition: Point, center: Poi
     return angle2 - angle1;
 }
 
-// 根据操作参数，计算位移，大小和旋转角度等
+/**
+ *  根据操作参数，计算位移，大小和旋转角度等
+ */
 export const getChangeData = (dir: ItemType, offset: Point, oldPosition: Point, newPosition: Point, center: Point, rotation: number=0) => {
     // 当前移动对原对象的改变
     const args: ChangeData = {
