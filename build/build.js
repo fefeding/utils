@@ -1,6 +1,6 @@
 
 const rollup = require('rollup');
-const rollupOptions = require('./rollup.config.js');
+const rollupOptions = require('../rollup.config.js');
 
 /**
  * format
