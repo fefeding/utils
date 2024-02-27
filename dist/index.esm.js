@@ -234,8 +234,8 @@ var util = {
     setRange(dom, position) {
         let range;
         if (position) {
-            //document.caretPositionFromPoint();
-            range = document.caretRangeFromPoint(position.x, position.y);
+            //@ts-ignore
+            range = document.caretPositionFromPoint ? document.caretPositionFromPoint(position.x, position.y) : document.caretRangeFromPoint(position.x, position.y);
         }
         else {
             // 把光标置于最后
