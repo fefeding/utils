@@ -211,7 +211,7 @@ export default {
      * @param value 
      * @returns 
      */
-    attr(dom: any, name: string, value: string|number|undefined) {
+    attr(dom: any, name: string, value?: string|number) {
         if(typeof value !== 'undefined') {
             dom.setAttribute(name, value+'');
             return value;

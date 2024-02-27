@@ -124,7 +124,7 @@ declare const _default: {
      * @param value
      * @returns
      */
-    attr(dom: any, name: string, value: string | number | undefined): any;
+    attr(dom: any, name: string, value?: string | number): any;
     uuid(): string;
     /**
      * 把图片旋转一定角度，返回base64
