@@ -1,5 +1,5 @@
 
-
+import { Point } from './types';
 
 export default {
     /**
@@ -219,6 +219,33 @@ export default {
         else {
             return dom.getAttribute(name);
         }
+    },
+    /**
+     * 设置光标位置
+     * @param dom 元素 htmlelement 
+     */
+    setRange(dom?:HTMLElement, position?: Point) {        
+
+        let range: Range;
+        if(position) {
+            //document.caretPositionFromPoint();
+            range = document.caretRangeFromPoint(position.x, position.y);
+        }
+        else {
+            // 把光标置于最后
+            range = document.createRange();
+            if(dom) {
+                const nodes = dom.childNodes;
+                if(nodes.length) {
+                    const last = nodes[nodes.length-1];
+                    range.setStart(last, last.textContent.length);
+                }
+            }
+        }
+        const sel = window.getSelection();
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
     },
     // 本地唯一ID，这个只要保证当前线程唯一即可，非全球唯一
     uuid() {

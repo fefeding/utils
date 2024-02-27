@@ -1,3 +1,4 @@
+import { Point } from './types';
 declare const _default: {
     /**
      * 是否是数字，字符串数字或配身就是number返回true
@@ -125,6 +126,11 @@ declare const _default: {
      * @returns
      */
     attr(dom: any, name: string, value?: string | number): any;
+    /**
+     * 设置光标位置
+     * @param dom 元素 htmlelement
+     */
+    setRange(dom?: HTMLElement, position?: Point): void;
     uuid(): string;
     /**
      * 把图片旋转一定角度，返回base64
