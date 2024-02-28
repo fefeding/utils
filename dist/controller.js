@@ -17,40 +17,40 @@ export const Cursors = {
         'skew': 'pointer'
     },
     // 根据角度旋转指针
-    async get(dir, rotation = 0) {
+    async get(dir, rotation = 0, data = this.data) {
         if (dir === 'rotate' || dir === 'skew')
-            return this[dir];
+            return data[dir] || 'pointer';
         if (Math.abs(rotation) > fullCircleRadius)
             rotation = rotation % fullCircleRadius;
         // 2PI 为一个圆，把角度转为一个圆内的值，以免重复生成图片
         const rotationKey = Number(rotation.toFixed(2)); // 精度只取小数2位
         const key = rotationKey === 0 ? dir : `${dir}_${rotationKey}`;
-        let cursor = this[key];
+        let cursor = data[key];
         if (!cursor) {
             if (dir === 'l' || dir === 'r' || dir === 't' || dir === 'b') {
                 // 如果没有旋转角度，则把ns转90度即可
                 if (rotation === 0) {
-                    cursor = await util.rotateImage(this['t'], Math.PI / 2);
-                    this['l'] = this['r'] = cursor;
+                    cursor = await util.rotateImage(data['t'], Math.PI / 2);
+                    data['l'] = data['r'] = cursor;
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
                     const normal = await this.get(dir, 0);
                     cursor = await util.rotateImage(normal, rotation);
-                    this[key] = cursor;
+                    data[key] = cursor;
                 }
             }
             else if (dir === 'tr' || dir === 'lb' || dir === 'lt' || dir === 'rb') {
                 // 如果没有旋转角度，则把nwse转90度即可
                 if (rotation === 0) {
-                    cursor = await util.rotateImage(this['lt'], Math.PI / 2);
-                    return this['tr'] = this['lb'] = cursor;
+                    cursor = await util.rotateImage(data['lt'], Math.PI / 2);
+                    return data['tr'] = data['lb'] = cursor;
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
                     const normal = await this.get(dir, 0);
                     cursor = await util.rotateImage(normal, rotation);
-                    this[key] = cursor;
+                    data[key] = cursor;
                 }
             }
         }

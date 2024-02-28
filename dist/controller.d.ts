@@ -5,7 +5,7 @@ export declare const fullCircleRadius: number;
  */
 export declare const Cursors: {
     data: ControllerCursorData;
-    get(dir: ItemType | 'rotate' | 'skew', rotation?: number): Promise<any>;
+    get(dir: ItemType | 'rotate' | 'skew', rotation?: number, data?: ControllerCursorData): Promise<any>;
 };
 /**
  * 因为旋转后坐标要回原才好计算操作，
