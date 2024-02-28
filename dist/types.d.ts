@@ -16,14 +16,14 @@ export type ChangeData = Point & {
     skew: Point;
 };
 export type ControllerCursorData = {
-    'l': string;
-    'lt': string;
-    't': string;
-    'tr': string;
-    'r': string;
-    'rb': string;
-    'b': string;
-    'lb': string;
-    'rotate': string;
-    'skew': string;
+    'l'?: string;
+    'lt'?: string;
+    't'?: string;
+    'tr'?: string;
+    'r'?: string;
+    'rb'?: string;
+    'b'?: string;
+    'lb'?: string;
+    'rotate'?: string;
+    'skew'?: string;
 };
