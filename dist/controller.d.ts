@@ -1,19 +1,10 @@
-import { ItemType, ChangeData, Point } from './types';
+import { ItemType, ChangeData, Point, ControllerCursorData } from './types';
 export declare const fullCircleRadius: number;
 /**
  * 操作杠指针配置
  */
 export declare const Cursors: {
-    l: string;
-    lt: string;
-    t: string;
-    tr: string;
-    r: string;
-    rb: string;
-    b: string;
-    lb: string;
-    rotate: string;
-    skew: string;
+    data: ControllerCursorData;
     get(dir: ItemType | 'rotate' | 'skew', rotation?: number): Promise<any>;
 };
 /**

@@ -1,4 +1,4 @@
-import { ItemType, ChangeData, Point, BoundRect } from './types';
+import { ItemType, ChangeData, Point, ControllerCursorData } from './types';
 import util from './util';
 
 export const fullCircleRadius = Math.PI * 2;
@@ -7,16 +7,18 @@ export const fullCircleRadius = Math.PI * 2;
  * 操作杠指针配置
  */
 export const Cursors = {
-    'l': '',
-    'lt': '',
-    't': '',
-    'tr': '',
-    'r': '',
-    'rb': '',
-    'b': '',
-    'lb': '',
-    'rotate': '',
-    'skew': 'pointer',
+    data: {
+        'l': '',
+        'lt': '',
+        't': '',
+        'tr': '',
+        'r': '',
+        'rb': '',
+        'b': '',
+        'lb': '',
+        'rotate': '',
+        'skew': 'pointer'
+    } as ControllerCursorData,
     // 根据角度旋转指针
     async get(dir: ItemType|'rotate'|'skew', rotation: number=0) {
         if(dir === 'rotate' || dir === 'skew') return this[dir];

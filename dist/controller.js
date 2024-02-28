@@ -4,16 +4,18 @@ export const fullCircleRadius = Math.PI * 2;
  * 操作杠指针配置
  */
 export const Cursors = {
-    'l': '',
-    'lt': '',
-    't': '',
-    'tr': '',
-    'r': '',
-    'rb': '',
-    'b': '',
-    'lb': '',
-    'rotate': '',
-    'skew': 'pointer',
+    data: {
+        'l': '',
+        'lt': '',
+        't': '',
+        'tr': '',
+        'r': '',
+        'rb': '',
+        'b': '',
+        'lb': '',
+        'rotate': '',
+        'skew': 'pointer'
+    },
     // 根据角度旋转指针
     async get(dir, rotation = 0) {
         if (dir === 'rotate' || dir === 'skew')
