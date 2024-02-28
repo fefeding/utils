@@ -32,8 +32,15 @@ export const Cursors = {
                 // 如果没有旋转角度，则把ns转90度即可
                 if(rotation === 0) {
                     if(!data['t']) return 'pointer';
-                    cursor = await util.rotateImage(data['t'], Math.PI/2);
-                    data['l'] = data['r'] = cursor;
+                    // b t 同指针
+                    if(dir === 'b') {
+                        cursor = data[dir] = data['t'];
+                    }
+                    else {
+                        cursor = await util.rotateImage(data['t'], Math.PI/2);
+                        if(!data['l']) data['l'] = cursor;
+                        if(!data['r']) data['r'] = cursor;
+                    }
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
@@ -47,8 +54,15 @@ export const Cursors = {
                 // 如果没有旋转角度，则把nwse转90度即可
                 if(rotation === 0) {
                     if(!data['lt']) return 'pointer';
-                    cursor = await util.rotateImage(data['lt'], Math.PI/2);
-                    return data['tr'] = data['lb'] = cursor;
+                    // rb lt同一个指针
+                    if(dir === 'rb') {
+                        cursor = data[dir] = data['lt'];
+                    }
+                    else {
+                        cursor = await util.rotateImage(data['lt'], Math.PI/2);
+                        if(!data['tr']) data['tr'] = cursor;
+                        if(!data['lb']) data['lb'] = cursor;
+                    }
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
