@@ -261,9 +261,10 @@ export default {
      */
     async rotateImage(url: string, rotation: number): Promise<string> {
         if(!url) return url;
-        
+
         return new Promise((resolve, reject)=>{
             const img = new Image();
+            img.setAttribute('crossorigin', 'anonymous');
             img.onload = function(e) {
                 const cvs = document.createElement('canvas');
                 cvs.width = img.width;
