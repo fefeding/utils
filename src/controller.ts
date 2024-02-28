@@ -37,7 +37,7 @@ export const Cursors = {
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
-                    const normal = await this.get(dir, 0);
+                    const normal = await this.get(dir, 0, data);
                     if(!normal || normal === 'pointer') return 'pointer';
                     cursor = await util.rotateImage(normal, rotation);
                     data[key] = cursor;
@@ -52,7 +52,7 @@ export const Cursors = {
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
-                    const normal = await this.get(dir, 0);
+                    const normal = await this.get(dir, 0, data);
                     if(!normal || normal === 'pointer') return 'pointer';
                     cursor = await util.rotateImage(normal, rotation);
                     data[key] = cursor;
