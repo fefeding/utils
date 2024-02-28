@@ -266,6 +266,8 @@ var util = {
      * @returns
      */
     async rotateImage(url, rotation) {
+        if (!url)
+            return url;
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = function (e) {
@@ -361,12 +363,16 @@ const Cursors = {
             if (dir === 'l' || dir === 'r' || dir === 't' || dir === 'b') {
                 // 如果没有旋转角度，则把ns转90度即可
                 if (rotation === 0) {
+                    if (!data['t'])
+                        return 'pointer';
                     cursor = await util.rotateImage(data['t'], Math.PI / 2);
                     data['l'] = data['r'] = cursor;
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
                     const normal = await this.get(dir, 0);
+                    if (!normal || normal === 'pointer')
+                        return 'pointer';
                     cursor = await util.rotateImage(normal, rotation);
                     data[key] = cursor;
                 }
@@ -374,12 +380,16 @@ const Cursors = {
             else if (dir === 'tr' || dir === 'lb' || dir === 'lt' || dir === 'rb') {
                 // 如果没有旋转角度，则把nwse转90度即可
                 if (rotation === 0) {
+                    if (!data['lt'])
+                        return 'pointer';
                     cursor = await util.rotateImage(data['lt'], Math.PI / 2);
                     return data['tr'] = data['lb'] = cursor;
                 }
                 // 如果有旋转角度，则获取标准的再转对应的角度
                 else {
                     const normal = await this.get(dir, 0);
+                    if (!normal || normal === 'pointer')
+                        return 'pointer';
                     cursor = await util.rotateImage(normal, rotation);
                     data[key] = cursor;
                 }

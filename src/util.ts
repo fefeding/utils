@@ -260,6 +260,8 @@ export default {
      * @returns 
      */
     async rotateImage(url: string, rotation: number): Promise<string> {
+        if(!url) return url;
+        
         return new Promise((resolve, reject)=>{
             const img = new Image();
             img.onload = function(e) {
