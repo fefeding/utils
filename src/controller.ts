@@ -20,7 +20,7 @@ export const Cursors = {
         'skew': 'pointer'
     } as ControllerCursorData,
     // 根据角度旋转指针
-    async get(dir: ItemType|'rotate'|'skew', rotation: number=0, data: ControllerCursorData = this.data) {
+    async get(dir: ItemType|'rotate'|'skew', rotation: number=0, data: ControllerCursorData = this.data): Promise<string> {
         if(dir === 'rotate' || dir === 'skew') return data[dir] || 'pointer';
         if(Math.abs(rotation) > fullCircleRadius) rotation = rotation % fullCircleRadius;
         // 2PI 为一个圆，把角度转为一个圆内的值，以免重复生成图片
