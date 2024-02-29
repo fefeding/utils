@@ -226,6 +226,26 @@ export default {
         }
     },
     /**
+     * 设置class样式
+     * @param dom 节点
+     * @param name 样式名
+     * @param remove 如果true则表示删除样式
+     */
+    class(dom: HTMLElement, name: string|Array<string>, remove = false) {
+        if(Array.isArray(name)) {
+            for(const n of name) {
+                this.class(dom, n, remove);
+            }
+            return;
+        }
+        if(remove) {
+            dom.classList.remove(name);
+        }
+        else {
+            if(!dom.classList.contains(name)) dom.classList.add(name);
+        }
+    },
+    /**
      * 设置光标位置
      * @param dom 元素 htmlelement 
      */

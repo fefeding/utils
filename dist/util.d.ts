@@ -128,6 +128,13 @@ declare const _default: {
      */
     attr(dom: any, name: string, value?: string | number): any;
     /**
+     * 设置class样式
+     * @param dom 节点
+     * @param name 样式名
+     * @param remove 如果true则表示删除样式
+     */
+    class(dom: HTMLElement, name: string | Array<string>, remove?: boolean): void;
+    /**
      * 设置光标位置
      * @param dom 元素 htmlelement
      */
