@@ -44,13 +44,18 @@ var util = {
     /**
      * 带像素或其它单位的转换为数字: 2px -> 2
      * @param v
+     * @param fractionDigits 保留小数位
      * @returns
      */
-    toNumber(v) {
+    toNumber(v, fractionDigits) {
         if (this.isNumber(v))
-            return Number(v);
+            v = Number(v);
         else if (typeof v === 'string')
-            return parseFloat(v) || 0;
+            v = (parseFloat(v) || 0);
+        if (typeof fractionDigits !== 'undefined') {
+            v = Number(v.toFixed(fractionDigits));
+        }
+        return v;
     },
     /**
      * 弧度转角度: Math.PI -> 180

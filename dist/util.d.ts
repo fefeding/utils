@@ -33,9 +33,10 @@ declare const _default: {
     /**
      * 带像素或其它单位的转换为数字: 2px -> 2
      * @param v
+     * @param fractionDigits 保留小数位
      * @returns
      */
-    toNumber(v: string | number): number;
+    toNumber(v: string | number, fractionDigits?: number): number;
     /**
      * 弧度转角度: Math.PI -> 180
      * @param v
