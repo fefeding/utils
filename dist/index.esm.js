@@ -100,18 +100,19 @@ var util = {
     /**
      * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
      * @param v
-     * @param per 比例值，默认255
+     * @param multiple 比例值，默认255
      */
-    toMultipleInt(v, per = 255) {
-        return Math.ceil(v * per);
+    toMultipleInt(v, multiple = 1) {
+        return Math.ceil(v * multiple);
     },
     /**
      * 把rgba颜色转为rgba()串型式
+     * multiple倍数，如果是小数，则需要*255转到标准值
      */
-    colorToString(color) {
-        let str = `${this.toMultipleInt(color.r)},${this.toMultipleInt(color.g)},${this.toMultipleInt(color.b)}`;
+    colorToString(color, multiple = 1) {
+        let str = `${this.toMultipleInt(color.r, multiple)},${this.toMultipleInt(color.g, multiple)},${this.toMultipleInt(color.b, multiple)}`;
         if (typeof color.a !== 'undefined') {
-            str = `rgba(${str},${this.toMultipleInt(color.a)})`;
+            str = `rgba(${str},${this.toMultipleInt(color.a, multiple)})`;
         }
         else {
             str = `rgb(${str})`;

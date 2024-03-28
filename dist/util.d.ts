@@ -64,13 +64,14 @@ declare const _default: {
     /**
      * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
      * @param v
-     * @param per 比例值，默认255
+     * @param multiple 比例值，默认255
      */
-    toMultipleInt(v: number, per?: number): number;
+    toMultipleInt(v: number, multiple?: number): number;
     /**
      * 把rgba颜色转为rgba()串型式
+     * multiple倍数，如果是小数，则需要*255转到标准值
      */
-    colorToString(color: Color): string;
+    colorToString(color: Color, multiple?: number): string;
     /**
      * 获取元素的绝对定位
      * @param  el - 目标元素对象
