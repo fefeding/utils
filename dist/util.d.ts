@@ -1,4 +1,4 @@
-import { Point } from './types';
+import { Point, Color } from './types';
 declare const _default: {
     /**
      * 是否是数字，字符串数字或配身就是number返回true
@@ -61,6 +61,16 @@ declare const _default: {
      * @returns
      */
     toRad(v: string | number): any;
+    /**
+     * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
+     * @param v
+     * @param per 比例值，默认255
+     */
+    toMultipleInt(v: number, per?: number): number;
+    /**
+     * 把rgba颜色转为rgba()串型式
+     */
+    colorToString(color: Color): string;
     /**
      * 获取元素的绝对定位
      * @param  el - 目标元素对象

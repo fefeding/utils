@@ -98,6 +98,27 @@ var util = {
         return v;
     },
     /**
+     * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
+     * @param v
+     * @param per 比例值，默认255
+     */
+    toMultipleInt(v, per = 255) {
+        return Math.ceil(v * per);
+    },
+    /**
+     * 把rgba颜色转为rgba()串型式
+     */
+    colorToString(color) {
+        let str = `${this.toMultipleInt(color.r)},${this.toMultipleInt(color.g)},${this.toMultipleInt(color.b)}`;
+        if (typeof color.a !== 'undefined') {
+            str = `rgba(${str},${this.toMultipleInt(color.a)})`;
+        }
+        else {
+            str = `rgb(${str})`;
+        }
+        return str;
+    },
+    /**
      * 获取元素的绝对定位
      * @param  el - 目标元素对象
      * @returns  位置对象(top,left)

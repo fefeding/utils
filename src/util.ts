@@ -1,5 +1,5 @@
 
-import { Point } from './types';
+import { Point, Color } from './types';
 
 export default {
     /**
@@ -92,6 +92,27 @@ export default {
         if(this.isNumber(v)) return v + 'rad';
         if(typeof v === 'string' && this.isDegNumber(v)) return this.toRad(this.degToRad(parseFloat(v)));
         return v;
+    },
+    /**
+     * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
+     * @param v 
+     * @param per 比例值，默认255
+     */
+    toMultipleInt(v: number, per: number=255) {
+        return Math.ceil(v * per);
+    },
+    /**
+     * 把rgba颜色转为rgba()串型式
+     */
+    colorToString(color: Color) {
+        let str = `${this.toMultipleInt(color.r)},${this.toMultipleInt(color.g)},${this.toMultipleInt(color.b)}`;
+        if(typeof color.a !== 'undefined') {
+            str = `rgba(${str},${this.toMultipleInt(color.a)})`;
+        }
+        else {
+            str = `rgb(${str})`;
+        }
+        return str;
     },
     /**
      * 获取元素的绝对定位
@@ -225,6 +246,7 @@ export default {
             return dom.getAttribute(name);
         }
     },
+
     /**
      * 设置class样式
      * @param dom 节点

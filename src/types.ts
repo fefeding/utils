@@ -6,6 +6,18 @@ export type Point = {
     y: number;
 }
 
+/** An RGBA color */
+export declare type Color = {
+    /** Red channel value, between 0 and 1 */
+    r: number;
+    /** Green channel value, between 0 and 1 */
+    g: number;
+    /** Blue channel value, between 0 and 1 */
+    b: number;
+    /** Alpha channel value, between 0 and 1 */
+    a?: number;
+};
+
 export type BoundRect = {
     left: number;
     top: number;
