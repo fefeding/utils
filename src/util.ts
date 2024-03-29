@@ -40,8 +40,8 @@ export default {
      * @returns 
      */
     toPX(v: string|number) {
-        if(this.isNumber(v)) return v + 'px';
-        return v;
+        if(this.isNumber(v) || !this.isPXNumber(v)) return v + 'px';
+        return v + '';
     },
     /**
      * 带像素或其它单位的转换为数字: 2px -> 2
@@ -78,20 +78,20 @@ export default {
      * @param v 
      * @returns 
      */
-    toDeg(v: string|number) {
+    toDeg(v: string|number): string {
         if(this.isNumber(v)) return v + 'deg';
         if(typeof v === 'string' && this.isRadNumber(v)) return this.toDeg(this.radToDeg(parseFloat(v)));
-        return v;
+        return v + '';
     },
     /**
      * 转为弧度格式, 1 -> 1rad,  180deg -> 3.14rad
      * @param v 
      * @returns 
      */
-    toRad(v: string|number) {
+    toRad(v: string|number): string {
         if(this.isNumber(v)) return v + 'rad';
         if(typeof v === 'string' && this.isDegNumber(v)) return this.toRad(this.degToRad(parseFloat(v)));
-        return v;
+        return v + '';
     },
     /**
      * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255

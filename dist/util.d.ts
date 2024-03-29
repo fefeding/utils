@@ -29,7 +29,7 @@ declare const _default: {
      * @param v
      * @returns
      */
-    toPX(v: string | number): string | number;
+    toPX(v: string | number): string;
     /**
      * 带像素或其它单位的转换为数字: 2px -> 2
      * @param v
@@ -54,13 +54,13 @@ declare const _default: {
      * @param v
      * @returns
      */
-    toDeg(v: string | number): any;
+    toDeg(v: string | number): string;
     /**
      * 转为弧度格式, 1 -> 1rad,  180deg -> 3.14rad
      * @param v
      * @returns
      */
-    toRad(v: string | number): any;
+    toRad(v: string | number): string;
     /**
      * 把数值按比例转为目标数值，比如rgba的 0.5-》0.5*255
      * @param v
