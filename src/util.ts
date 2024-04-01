@@ -348,11 +348,7 @@ export default {
         option = option || {};
         return new Promise((resolve, reject) => {
             const request = new XMLHttpRequest();//新建XMLHttpRequest对象
-            if(option.headers) {
-                for(const name in option.headers) {
-                    request.setRequestHeader(name, option.headers[name]);
-                }
-            }
+            
             const params = [];
             if(option.data) {
                 for(const name in option.data) {
@@ -375,6 +371,13 @@ export default {
             }
             //发送请求：
             request.open(method, url);
+
+            if(option.headers) {
+                for(const name in option.headers) {
+                    request.setRequestHeader(name, option.headers[name]);
+                }
+            }
+            
             request.send(method === 'POST'? params.join('&'): null);
         });
     }
