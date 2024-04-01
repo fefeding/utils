@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+export default {
     /**
      * 是否是数字，字符串数字或配身就是number返回true
      * @param v 原字符串或数字
