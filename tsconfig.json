@@ -8,7 +8,7 @@
     "jsx": "preserve",
     "noImplicitAny": false,
     "target": "esnext",
-    "module": "ESNext",
+    "module": "CommonJS",
     "strict": false,
     "allowJs": false,
     "noUnusedLocals": false,

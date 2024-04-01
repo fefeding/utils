@@ -1,9 +1,15 @@
-import util from './util';
-export const fullCircleRadius = Math.PI * 2;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getChangeData = exports.rotateChange = exports.getRotateEventPosition = exports.Cursors = exports.fullCircleRadius = void 0;
+const util_1 = __importDefault(require("./util"));
+exports.fullCircleRadius = Math.PI * 2;
 /**
  * 操作杠指针配置
  */
-export const Cursors = {
+exports.Cursors = {
     data: {
         'l': '',
         'lt': '',
@@ -20,8 +26,8 @@ export const Cursors = {
     async get(dir, rotation = 0, data = this.data) {
         if (dir === 'rotate' || dir === 'skew')
             return data[dir] || 'pointer';
-        if (Math.abs(rotation) > fullCircleRadius)
-            rotation = rotation % fullCircleRadius;
+        if (Math.abs(rotation) > exports.fullCircleRadius)
+            rotation = rotation % exports.fullCircleRadius;
         // 2PI 为一个圆，把角度转为一个圆内的值，以免重复生成图片
         const rotationKey = Number(rotation.toFixed(2)); // 精度只取小数2位
         const key = rotationKey === 0 ? dir : `${dir}_${rotationKey}`;
@@ -37,7 +43,7 @@ export const Cursors = {
                         cursor = data[dir] = data['t'];
                     }
                     else {
-                        cursor = await util.rotateImage(data['t'], Math.PI / 2);
+                        cursor = await util_1.default.rotateImage(data['t'], Math.PI / 2);
                         if (!data['l'])
                             data['l'] = cursor;
                         if (!data['r'])
@@ -49,7 +55,7 @@ export const Cursors = {
                     const normal = await this.get(dir, 0, data);
                     if (!normal || normal === 'pointer')
                         return 'pointer';
-                    cursor = await util.rotateImage(normal, rotation);
+                    cursor = await util_1.default.rotateImage(normal, rotation);
                     data[key] = cursor;
                 }
             }
@@ -63,7 +69,7 @@ export const Cursors = {
                         cursor = data[dir] = data['lt'];
                     }
                     else {
-                        cursor = await util.rotateImage(data['lt'], Math.PI / 2);
+                        cursor = await util_1.default.rotateImage(data['lt'], Math.PI / 2);
                         if (!data['tr'])
                             data['tr'] = cursor;
                         if (!data['lb'])
@@ -75,7 +81,7 @@ export const Cursors = {
                     const normal = await this.get(dir, 0, data);
                     if (!normal || normal === 'pointer')
                         return 'pointer';
-                    cursor = await util.rotateImage(normal, rotation);
+                    cursor = await util_1.default.rotateImage(normal, rotation);
                     data[key] = cursor;
                 }
             }
@@ -92,19 +98,20 @@ export const Cursors = {
  * @param center
  * @returns
  */
-export const getRotateEventPosition = (offset, oldPosition, newPosition, rotation, center) => {
+const getRotateEventPosition = (offset, oldPosition, newPosition, rotation, center) => {
     // 先回原坐标，再主算偏移量，这样保证操作更容易理解
     if (rotation) {
-        const [pos1, pos2] = util.rotatePoints([oldPosition, newPosition], center, -rotation);
+        const [pos1, pos2] = util_1.default.rotatePoints([oldPosition, newPosition], center, -rotation);
         offset.x = pos2.x - pos1.x;
         offset.y = pos2.y - pos1.y;
     }
     return offset;
 };
+exports.getRotateEventPosition = getRotateEventPosition;
 /**
  *  发生旋转, 计算得到的旋转角度
  */
-export const rotateChange = (oldPosition, newPosition, center) => {
+const rotateChange = (oldPosition, newPosition, center) => {
     // 因为center是相对于编辑器的，所以事件坐标也需要转到编辑器
     const cx1 = oldPosition.x - center.x;
     const cy1 = oldPosition.y - center.y;
@@ -130,10 +137,11 @@ export const rotateChange = (oldPosition, newPosition, center) => {
     }
     return angle2 - angle1;
 };
+exports.rotateChange = rotateChange;
 /**
  *  根据操作参数，计算位移，大小和旋转角度等
  */
-export const getChangeData = (dir, offset, oldPosition, newPosition, center, rotation = 0) => {
+const getChangeData = (dir, offset, oldPosition, newPosition, center, rotation = 0) => {
     // 当前移动对原对象的改变
     const args = {
         x: 0,
@@ -148,7 +156,7 @@ export const getChangeData = (dir, offset, oldPosition, newPosition, center, rot
     };
     // 先回原坐标，再主算偏移量，这样保证操作更容易理解
     if (rotation) {
-        offset = getRotateEventPosition(offset, oldPosition, newPosition, rotation, center);
+        offset = (0, exports.getRotateEventPosition)(offset, oldPosition, newPosition, rotation, center);
     }
     switch (dir) {
         case 'l': {
@@ -200,9 +208,10 @@ export const getChangeData = (dir, offset, oldPosition, newPosition, center, rot
             x: center.x + args.x + args.width / 2,
             y: center.y + args.y + args.height / 2
         };
-        const targetCenter = util.rotatePoints({ ...newCenter }, center, rotation);
+        const targetCenter = util_1.default.rotatePoints({ ...newCenter }, center, rotation);
         args.x += targetCenter.x - newCenter.x;
         args.y += targetCenter.y - newCenter.y;
     }
     return args;
 };
+exports.getChangeData = getChangeData;
