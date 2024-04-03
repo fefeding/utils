@@ -112,7 +112,7 @@ export default {
     colorToString(color, multiple = 1) {
         let str = `${this.toMultipleInt(color.r, multiple)},${this.toMultipleInt(color.g, multiple)},${this.toMultipleInt(color.b, multiple)}`;
         if (typeof color.a !== 'undefined') {
-            str = `rgba(${str},${this.toMultipleInt(color.a, multiple)})`;
+            str = `rgba(${str},${color.a})`;
         }
         else {
             str = `rgb(${str})`;
