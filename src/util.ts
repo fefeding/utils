@@ -302,6 +302,15 @@ export default {
         return (time + rnd).toString();
     },
     /**
+     * 获取二点在标准坐标系中的的弧度, 返回值为 0 ~ Math.PI*2
+     * @param start 
+     * @param end 
+     */
+    getPointCoordRotation(start: Point, end: Point) {
+        const r = Math.atan2(end.y - start.y, end.x - start.x);
+        return r < 0? Math.PI*2 + r : r;
+    },
+    /**
      * 把图片旋转一定角度，返回base64
      * @param url 
      * @param rotation 
