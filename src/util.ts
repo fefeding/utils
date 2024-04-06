@@ -307,8 +307,20 @@ export default {
      * @param end 
      */
     getPointCoordRotation(start: Point, end: Point) {
-        const r = Math.atan2(end.y - start.y, end.x - start.x);
-        return r < 0? Math.PI*2 + r : r;
+        const dy = end.y - start.y;
+        const dx = end.x - start.x;
+        if(dx === 0) {
+            if(dy > 0) return Math.PI + Math.PI/2;
+            else if(dy < 0) return Math.PI/2;
+            else return 0;
+        }
+        else if(dy === 0) {
+            if(dx > 0) return 0;
+            else if(dx < 0) return Math.PI;
+            else return 0;
+        }
+        const r = Math.atan2(dx, dy);
+        return r < 0? (Math.PI*2 + r) : r;
     },
     /**
      * 把图片旋转一定角度，返回base64
