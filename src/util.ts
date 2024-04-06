@@ -319,8 +319,8 @@ export default {
             else if(dx < 0) return Math.PI;
             else return 0;
         }
-        const r = Math.atan2(dx, dy);
-        return r < 0? (Math.PI*2 + r) : r;
+        const r = Math.atan2(dy, dx);
+        return r <= 0? Math.abs(r) : (Math.PI*2 - r);
     },
     /**
      * 把图片旋转一定角度，返回base64
