@@ -273,7 +273,7 @@ export default {
             ctx.font = fontSize + "px" + family + ", " + baseFont;
             ctx.fillText(txt, w/2, h/2);
             const data = ctx.getImageData(0,0,w,h).data;
-            return [].slice.call(data).filter(p=> p != 0);
+            return [].slice.call(data).filter((p:number) => p != 0);
        }
        const supported = check(ctx, baseFont, w, h).join("") !== check(ctx, family, w, h).join("");
        return supported;
