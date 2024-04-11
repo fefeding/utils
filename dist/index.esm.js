@@ -1155,13 +1155,13 @@ class JFonts extends JEventEmitter {
     // 获取已加载的字体
     get(name) {
         if (this.fonts) {
-            name = name.toLocaleLowerCase();
-            if (this.fonts.has(name))
-                return this.fonts.get(name);
+            const lowerName = name.toLocaleLowerCase();
+            if (this.fonts.has(lowerName))
+                return this.fonts.get(lowerName);
             else {
                 const exist = util.checkFont(name); // 如果系统已经支持，则加到配置中
                 if (exist) {
-                    const font = new JFontData(name, '', new FontFace(name, ''));
+                    const font = new JFontData(lowerName, '', new FontFace(name, ''));
                     this.registry(font);
                     return font;
                 }
