@@ -114,6 +114,14 @@ export class JFonts extends EventEmiter implements IJFonts {
         if(this.fonts) {
             name = name.toLocaleLowerCase();
             if(this.fonts.has(name)) return this.fonts.get(name);
+            else {
+                const exist = util.checkFont(name);// 如果系统已经支持，则加到配置中
+                if(exist) {
+                    const font = new JFontData(name, '', new FontFace(name, ''));
+                    this.registry(font);
+                    return font;
+                }
+            }
         }
         return null;
     }
@@ -121,14 +129,7 @@ export class JFonts extends EventEmiter implements IJFonts {
     // 检查加载的字体是否存在，存在则返回字体对象
     check(name: string): boolean {
         const font = this.get(name);
-        if(font) return true;
-        else {
-            const exist = util.checkFont(name);// 如果系统已经支持，则加到配置中
-            if(exist) {
-                this.registry(new JFontData(name, '', new FontFace(name, '')));
-            }
-            return exist;
-        }
+        return !!font;
     }
 
 }
