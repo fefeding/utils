@@ -139,6 +139,11 @@ declare const _default: {
      */
     attr(dom: any, name: string, value?: string | number): any;
     /**
+     * 检测是否支持某字体
+     * @param family 字体名
+     */
+    checkFont(family: string): boolean;
+    /**
      * 设置class样式
      * @param dom 节点
      * @param name 样式名
