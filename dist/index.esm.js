@@ -308,6 +308,33 @@ var util = {
         return (time + rnd).toString();
     },
     /**
+     * 获取二点在标准坐标系中的的弧度, 返回值为 0 ~ Math.PI*2
+     * @param start
+     * @param end
+     */
+    getPointCoordRotation(start, end) {
+        const dy = end.y - start.y;
+        const dx = end.x - start.x;
+        if (dx === 0) {
+            if (dy > 0)
+                return Math.PI + Math.PI / 2;
+            else if (dy < 0)
+                return Math.PI / 2;
+            else
+                return 0;
+        }
+        else if (dy === 0) {
+            if (dx > 0)
+                return 0;
+            else if (dx < 0)
+                return Math.PI;
+            else
+                return 0;
+        }
+        const r = Math.atan2(dy, dx);
+        return r <= 0 ? Math.abs(r) : (Math.PI * 2 - r);
+    },
+    /**
      * 把图片旋转一定角度，返回base64
      * @param url
      * @param rotation
