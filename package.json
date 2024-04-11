@@ -1,6 +1,6 @@
 {
   "name": "j-design-util",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "工具类",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -51,7 +51,7 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
-    
+    "j-eventemitter": "^1.0.1"
   },
   "author": "fefeding",
   "license": "MIT"
