@@ -22,7 +22,7 @@ export declare class JFonts extends EventEmiter implements IJFonts {
      * @param font 字体
      */
     registry(font: IJFontData | Array<IJFontData>): void;
-    load(name: string, url?: string): Promise<IJFontFace>;
+    load(name: string, url?: string): Promise<IJFontFace | null>;
     get(name: string): IJFontFace | null;
     check(name: string): boolean;
 }

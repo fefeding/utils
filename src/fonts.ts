@@ -87,7 +87,7 @@ export class JFonts extends EventEmiter implements IJFonts {
     }
 
     // 加载字体
-    async load(name: string, url?: string): Promise<IJFontFace> {
+    async load(name: string, url?: string): Promise<IJFontFace | null> {
         let font = this.get(name);
         if(font) {
             if(font.url && (font.status === 'unloaded' || font.status === 'error')) return font.load();
@@ -97,7 +97,7 @@ export class JFonts extends EventEmiter implements IJFonts {
             const config = this.fontConfigs.get(name.toLocaleLowerCase());
             // 没有配置支持的字体，则报错
             if(!config) {
-                console.warn(`没有支持的 ${name} 字体配置`);
+                //console.warn(`没有支持的 ${name} 字体配置`);
                 return null;
             }
             url = config.url;
