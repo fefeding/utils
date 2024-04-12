@@ -359,7 +359,7 @@ export default {
      * @param rotation 
      * @returns 
      */
-    async rotateImage(url: string, rotation: number): Promise<string> {
+    async rotateImage(url: string, rotation: number, quality?: number, type: string = 'image/png'): Promise<string> {
         if(!url) return url;
 
         return new Promise((resolve, reject)=>{
@@ -371,13 +371,14 @@ export default {
                 cvs.height = img.height;
                 const ctx = cvs.getContext('2d');
                 ctx.clearRect(0, 0, cvs.width, cvs.height);
-
-                ctx.translate(cvs.width / 2, cvs.height / 2);
-                ctx.rotate(rotation);
-                ctx.translate(-cvs.width / 2, -cvs.height / 2);
-
+                // 如果角度为0，则只是转为了base64
+                if(rotation) {
+                    ctx.translate(cvs.width / 2, cvs.height / 2);
+                    ctx.rotate(rotation);
+                    ctx.translate(-cvs.width / 2, -cvs.height / 2);
+                }
                 ctx.drawImage(img, 0, 0);
-                const data = cvs.toDataURL();
+                const data = cvs.toDataURL(type, quality);
                 resolve(data);
             };
             img.onerror = function(e){
@@ -386,6 +387,17 @@ export default {
             img.src=url;
         });
     },
+
+    /**
+     * 把图片转为bae64
+     * @param url 图片地址
+     * @returns 
+     */
+    async image2Base64(url: string, quality?: number, type: string = 'image/png') {
+        const base64 = await this.rotateImage(url, 0, quality, type);
+        return base64
+    },
+
     /**
      * 请求远程资源
      * @param url 

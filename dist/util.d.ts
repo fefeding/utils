@@ -168,7 +168,13 @@ declare const _default: {
      * @param rotation
      * @returns
      */
-    rotateImage(url: string, rotation: number): Promise<string>;
+    rotateImage(url: string, rotation: number, quality?: number, type?: string): Promise<string>;
+    /**
+     * 把图片转为bae64
+     * @param url 图片地址
+     * @returns
+     */
+    image2Base64(url: string, quality?: number, type?: string): Promise<any>;
     /**
      * 请求远程资源
      * @param url
