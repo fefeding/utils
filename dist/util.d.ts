@@ -73,6 +73,11 @@ declare const _default: {
      */
     colorToString(color: Color, multiple?: number): string;
     /**
+     * 创建dom元素
+     * @param tag 标签名
+     */
+    createElement(tag: any, option?: ElementCreationOptions): HTMLElement;
+    /**
      * 获取元素的绝对定位
      * @param  el - 目标元素对象
      * @returns  位置对象(top,left)

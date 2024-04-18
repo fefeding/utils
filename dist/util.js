@@ -120,6 +120,17 @@ export default {
         return str;
     },
     /**
+     * 创建dom元素
+     * @param tag 标签名
+     */
+    createElement(tag, option) {
+        // svg标签创建
+        if (['svg', 'defs', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'g', 'path', 'polygon', 'stop', 'text', 'mask', 'linearGradient', 'radialGradient', 'filter', 'feOffset', 'feBlend'].includes(tag)) {
+            return document.createElementNS("http://www.w3.org/2000/svg", tag, option); // 创建SVG元素
+        }
+        return document.createElement(tag, option);
+    },
+    /**
      * 获取元素的绝对定位
      * @param  el - 目标元素对象
      * @returns  位置对象(top,left)
