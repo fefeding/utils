@@ -68,6 +68,15 @@ declare const _default: {
      */
     toMultipleInt(v: number, multiple?: number): number;
     /**
+     * 把数值转换成指定区间的值 ，  比如-1到1之间的值转换成 0-1之间的值： toNumberRange(-1, -1,1,0,1);
+     * @param v 原数值
+     * @param sMin 原数值下限
+     * @param sMax 原数值上限
+     * @param dMin 目标区间下限
+     * @param dMax 目标区间上限
+     */
+    toNumberRange(v: number, sMin: number, sMax: number, dMin: number, dMax: number): number;
+    /**
      * 把rgba颜色转为rgba()串型式
      * multiple倍数，如果是小数，则需要*255转到标准值
      */

@@ -1,6 +1,6 @@
 {
   "name": "j-design-util",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "工具类",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
