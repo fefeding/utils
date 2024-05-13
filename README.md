@@ -2,7 +2,7 @@
 工具类
 
 ```bash
-npm i j-design-util
+npm i @fefeding/utils
 ```
 
 # API

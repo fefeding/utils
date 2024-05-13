@@ -1,5 +1,5 @@
 {
-  "name": "j-design-util",
+  "name": "@fefeding/utils",
   "version": "1.0.38",
   "description": "工具类",
   "main": "./dist/index.js",
@@ -20,6 +20,10 @@
     "docs:dev": "npm run api && vitepress dev",
     "docs:build": "npm run api && vitepress build",
     "docs:preview": "npm run api && vitepress preview"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
