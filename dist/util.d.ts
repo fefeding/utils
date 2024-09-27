@@ -204,5 +204,7 @@ declare const _default: {
             [key: string]: string;
         };
     }): Promise<string>;
+    requestAnimationFrame(callback: Function, win: any): any;
+    cancelAnimationFrame(handler: any, win: any): any;
 };
 export default _default;
